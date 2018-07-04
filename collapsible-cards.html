@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+<style>
+.content {
+/*    padding: 0 18px;*/
+    background-color: #201e45;
+    color: #ec9a9a;
+    font-family: 'Cabin';
+    font-size: 13px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    max-height: 0;
+    width: 90%;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.collapsible {
+/*	padding: 0 18px;*/
+	width: 90%;
+	height: 60px;
+	background-color: #201e45;
+	color: #ec9a9a;
+}
+
+.card {
+	width: 25%;
+	height: 180px;
+	float: left;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: relative;
+	box-sizing: border-box;
+	border-right: 1px hsla(0, 0%, 100%, 0.3) solid;
+}
+
+.titles {
+	width: 25%;
+	height: 60px;
+	background-color: #201e45;
+	float: left;
+	font-family: 'Cabin';
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	padding-left: 15px;
+	padding-right: 15px;
+	box-sizing: border-box;
+	font-weight: bolder;
+	margin-top: 10px;
+	border-right: 1px hsla(0, 0%, 100%, 0.3) solid;
+}
+
+.wide {
+	width: 98.25%;
+	box-sizing: border-box;
+}
+
+.narrow {
+	width: 48%;
+	box-sizing: border-box;
+}
+
+select {
+	width: 220px;
+	border-radius: 4px;
+	background-color: #3c3856;
+	color: #9390a9;
+	margin-top: 5px;
+	margin-left: 2px;
+	border: 0;
+	height: 25px;
+	box-sizing: border-box;
+	font-size: 13px;
+    letter-spacing: 0.5px;
+    font-family: 'Cabin';
+}
+
+.tile {
+	margin: auto;
+	display: block;
+	width: 120px;
+}
+
+input[type=text] {
+	border-radius: 4px;
+	background-color: #3c3856;
+	color: #9390a9;
+	padding-left: 5px;
+	margin-top: 5px;
+	margin-left: 2px;
+	border: 0;
+	height: 25px;
+	font-size: 13px;
+    letter-spacing: 0.5px;
+    font-family: 'Cabin';
+}
+
+.modal {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.modal-content {
+	position: absolute;
+	width: 400px;
+	height: 300px;
+	min-height: 200px;
+	left: 35%;
+	top: 20%;
+	background-color: white;
+	border-color: black;
+	border-width: 1px;
+	border-radius: 6px;
+	padding-left: 12px;
+	padding-top: 8px;
+	padding-right: 12px;
+	padding-bottom: 8px;
+	box-shadow: 2px 2px 2px 10px #888888;
+	overflow-wrap: break-word;
+	overflow-y: scroll;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.close-button {
+	float: right;
+	cursor: pointer;
+}
+
+.card > p {
+	padding-left: 7px;
+	margin-bottom: -10px;
+	margin-top: -5px;
+}
+
+div.wrapper {
+	text-align: center;
+	position: absolute;
+	bottom: 20px;
+	left: 105px;
+}
+
+div.button {
+	border-radius: 6px;
+	background-color: #ec9a9a;
+	color: #201e45;
+	border: 0;
+	width: 130px;
+	height: 25px;
+	margin: auto;
+	display: block;
+	font-size: 12px;
+	padding-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+	<div class="collapsible active">
+		<div class="titles"><i class="fas fa-hospital-alt" style="color:white;font-size:25px;padding-top:9px;padding-right:8px"></i>  Health Facilities<i class="fas fa-angle-down" style="color: hsla(0, 0%, 100%, 0.43);font-size:25px;float:right;padding-top:9px"></i></div>
+		<div class="titles"><i class="fas fa-plus-square" style="color:white;font-size:25px;padding-top:9px;padding-right:8px"></i>  Pharmacies<i class="fas fa-angle-down" style="color: hsla(0, 0%, 100%, 0.43);font-size:25px;float:right;padding-top:9px"></i></div>
+		<div class="titles"><i class="fas fa-medkit" style="color:white;font-size:25px;padding-top:9px;padding-right:8px"></i>  Medicine Prices<i class="fas fa-angle-down" style="color: hsla(0, 0%, 100%, 0.43);font-size:25px;float:right;padding-top:9px"></i></div>
+		<div class="titles"><i class="fas fa-user-md" style="color:white;font-size:25px;padding-top:9px;padding-right:8px"></i>  Bwana Afya<i class="fas fa-angle-down" style="color: hsla(0, 0%, 100%, 0.43);font-size:25px;float:right;padding-top:9px"></i></div>
+	</div>
+	<div class="content">
+		<div class="card">
+			<p>Find the nearest health facilities around you.</p><br>
+			<input type="text" placeholder="Start typing the name of your area" class="wide" id='areaSearch' onkeyup="if ( event.keyCode == 27 ) this.value=''">
+			<br>
+			<div class="wrapper"><div class="button" id="areaSearchSubmit">Search</div></div>
+		</div>
+		<div class="card">
+			<p>Find pharmacies</p><br>
+			<input type="text" placeholder="Search by location" class="wide" id="pharmLocation" onkeyup="if ( event.keyCode == 27 ) this.value=''"><br>
+			<input type="text" placeholder="Search by pharmacy name" class="wide" id="pharmName" onkeyup="if ( event.keyCode == 27 ) this.value=''">
+			<br>
+			<div class="wrapper"><div class="button" id="pharmSubmit">Search</div></div>
+		</div>
+		<div class="card">
+			<p>How much do you pay for drugs?</p><br>
+			<select class="wide" id="drugsDropdown">
+			</select><br>
+			<input type="text" placeholder="No. of dose" class="narrow" id="doseNo" onkeyup="if ( event.keyCode == 27 ) this.value=''">
+			<input type="text" placeholder="Buying price" class="narrow" id="buyingPrice" onkeyup="if ( event.keyCode == 27 ) this.value=''">
+			<br>
+			<div class="wrapper"><div class="button" id="priceSubmit">Search</div></div>
+		</div>
+		<div class="card" style="padding-top:0px">
+			<img src="man-icon.png" class="tile"><br>
+			<div class="wrapper"><div class="button" onclick="location.href='http://eshangazi.co.tz/';">Talk</div></div>
+		</div>
+	</div>
+
+
+	<script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.maxHeight){
+	      content.style.maxHeight = null;
+	    } else {
+	      content.style.maxHeight = content.scrollHeight + "px";
+	    } 
+	  });
+	}
+	</script>
+
+	<div class="modal">
+		<div class="modal-content" id="modal-content">
+			<span class="close-button">&times;</span>
+		</div>
+	</div>
+
+	
+
+	<script>
+	function humanize(str) {
+	  var frags = str.split('_');
+	  for (i=0; i<frags.length; i++) {
+	    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+	  }
+	  return frags.join(' ');
+	}
+
+	var modal = document.querySelector(".modal");
+	document.querySelector(".modal").addEventListener("click", toggleModal);
+
+    function toggleModal() {
+        modal.classList.toggle("show-modal");
+    }
+
+    function windowOnClick(event) {
+        if (event.target === modal) {
+            toggleModal();
+        }
+    }
+
+    var closeButtonHTML = "<span class=\"close-button\">&times;</span>"
+
+    window.addEventListener("click", windowOnClick);
+
+	var areaSearch = document.getElementById('areaSearchSubmit').onclick = function() {
+		toggleModal();
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://healthlocator.codefortanzania.org/api/facilities?q=" + document.getElementById('areaSearch').value);
+		xhr.onload = function() {
+			var facInfo = JSON.parse(xhr.responseText).facilities[0];
+			console.log(facInfo)
+			var attributes = Object.keys(facInfo)
+			console.log(attributes)
+			var modalHTML = ""
+			for (i in attributes) {
+				var toAppend = humanize(i) + ": " + facInfo.i;
+			}
+			console.log(toAppend);
+			document.getElementById("modal-content").innerHTML = closeButtonHTML + xhr.responseText;
+		}
+		xhr.send();
+	}
+
+	var pharmNameDisable = document.getElementById('pharmLocation').onblur = function() {
+		if (document.getElementById('pharmLocation').value != 0) {
+			document.getElementById('pharmName').disabled = true;
+		}
+	}
+
+	var pharmLocationDisable = document.getElementById('pharmName').onblur = function() {
+		if (document.getElementById('pharmName').value != 0) {
+			document.getElementById('pharmLocation').disabled = true;
+		}
+	}
+
+	var pharmNameEnable = document.getElementById('pharmLocation').onfocus = function() {
+		if (document.getElementById('pharmLocation').value) {
+			document.getElementById('pharmName').disabled = false;
+		}
+	}
+
+	var pharmLocationEnable = document.getElementById('pharmName').onfocus = function() {
+		if (document.getElementById('pharmName').value) {
+			document.getElementById('pharmLocation').disabled = false;
+		}
+	}
+
+	var pharmacies = document.getElementById('pharmSubmit').onclick = function() {
+		toggleModal();
+		if (document.getElementById('pharmName').value != 0) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://pcservice.codefortanzania.org/api/searchpharmacies?search_by=name&value=" + document.getElementById('pharmName').value);
+			xhr.onload = function() {
+				document.getElementById("modal-content").innerHTML = closeButtonHTML + xhr.responseText;
+			}
+			xhr.send();
+		}
+		if (document.getElementById('pharmLocation').value != 0) {
+			console.log("yes")
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://pcservice.codefortanzania.org/api/searchpharmacies?search_by=location&value=" + document.getElementById('pharmLocation').value);
+			xhr.onload = function() {
+				document.getElementById("modal-content").innerHTML = closeButtonHTML + xhr.responseText;
+			}
+			xhr.send();
+		}
+	}
+
+	var drugsDropdown = function() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://medprices-api.codefortanzania.org/api/drugs");
+		xhr.onload = function() {
+			var drugsDropdown = document.getElementById("drugsDropdown")
+			var drugs = JSON.parse(xhr.responseText).drugs.map(i => i.name);
+			for (i = 0; i < drugs.length; i++) {
+				var option = new Option(drugs[i], i+1);
+				drugsDropdown.appendChild(option);
+			}
+		}
+		xhr.send();
+	}
+
+	drugsDropdown();
+
+	var priceCheck = document.getElementById('priceSubmit').onclick = function() {
+		toggleModal();
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://medprices-api.codefortanzania.org/api/checkprice?drug_id=" + document.getElementById("drugsDropdown").value + "&dose=" + document.getElementById("doseNo").value + "&buying_price=" + document.getElementById('buyingPrice').value);
+		xhr.onload = function() {
+			var info = JSON.parse(xhr.responseText)
+			document.getElementById("modal-content").innerHTML = closeButtonHTML + info;
+		}
+		xhr.send();
+	}
+
+	
+
+	
+	</script>
+
+
+
+</body>
+
+</html>
