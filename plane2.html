@@ -209,6 +209,77 @@
 			}
 		})
 
+		document.onkeydown = checkKeyDown;
+
+		function checkKeyDown(f) {
+
+		    f = f || window.event;
+
+		    if (f.keyCode == '38') {
+		        let upArrows = document.getElementsByClassName('up')
+		        for (i = 0; i < upArrows.length; i++) {
+		        	clearInterval(handle3)
+		        	upArrows[i].style.top = parseInt(upArrows[i].style.top.slice(0, -2))-40 + "px"
+		        }
+		    }
+		    else if (f.keyCode == '40') {
+		        let downArrows = document.getElementsByClassName('down')
+		        for (i = 0; i < downArrows.length; i++) {
+		        	clearInterval(handle4)
+		        	downArrows[i].style.top = parseInt(downArrows[i].style.top.slice(0, -2))+40 + "px"
+		        }
+		    }
+		    else if (f.keyCode == '37') {
+		       let leftArrows = document.getElementsByClassName('left')
+		        for (i = 0; i < leftArrows.length; i++) {
+		        	clearInterval(handle1)
+		        	leftArrows[i].style.left = parseInt(leftArrows[i].style.left.slice(0, -2))-40 + "px"
+		        }
+		    }
+		    else if (f.keyCode == '39') {
+		       let rightArrows = document.getElementsByClassName('right')
+		        for (i = 0; i < rightArrows.length; i++) {
+		        	clearInterval(handle2)
+		        	rightArrows[i].style.left = parseInt(rightArrows[i].style.left.slice(0, -2))+40 + "px"
+		        }
+		    }
+
+		}
+
+		document.onkeyup = checkKeyUp;
+
+		function checkKeyUp(e) {
+
+		    e = e || window.event;
+
+		    if (e.keyCode == '38') {
+		        let upArrows = document.getElementsByClassName('up')
+		        for (i = 0; i < upArrows.length; i++) {
+		        	makeUpPlane(upArrows[i].id, 10, 'up')
+		        }
+		    }
+		    else if (e.keyCode == '40') {
+		        let downArrows = document.getElementsByClassName('down')
+		        for (i = 0; i < downArrows.length; i++) {
+		        	makeDownPlane(downArrows[i].id, 10, 'down')
+		        }
+		    }
+		    else if (e.keyCode == '37') {
+		       let leftArrows = document.getElementsByClassName('left')
+		       console.log(leftArrows)
+		        for (i = 0; i < leftArrows.length; i++) {
+		        	makeLeftPlane(leftArrows[i].id, 10, 'left')
+		        }
+		    }
+		    else if (e.keyCode == '39') {
+		       let rightArrows = document.getElementsByClassName('right')
+		        for (i = 0; i < rightArrows.length; i++) {
+		        	makeRightPlane(rightArrows[i].id, 10, 'right')
+		        }
+		    }
+
+		}
+
 </script>
 
 
