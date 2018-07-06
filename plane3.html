@@ -7,24 +7,20 @@
 	<style>
 		.left {
 			position: absolute;
-			top: 200px;
 		}
 
 		.right {
 			position: absolute;
-			top: 200px;
 			transform: rotate(180deg);
 		}
 
 		.up {
 			position: absolute;
-			left: 350px;
 			transform: rotate(90deg);
 		}
 
 		.down {
 			position: absolute;
-			left: 350px;
 			transform: rotate(-90deg);
 		}
 	</style>
@@ -38,10 +34,17 @@
 		const makePlane = function(id, speed, direction) {
 			const plane = document.getElementById(id),
 				planeSpeed = speed
-			let planeY = 200,
-				planeX = 350
+			if (!plane.style.left) {
+				plane.style.left = "350px"
+			}
+			planeX = parseInt(plane.style.left.slice(0, -2))
+			if (!plane.style.top) {
+				plane.style.top = "200px"
+			}
+			planeY = parseInt(plane.style.top.slice(0, -2))
 
 			const moveLeftPlane = function() {
+				console.log("left move")
 				if (planeX <= 0) {
 					plane.setAttribute('class','right')
 					clearInterval(handle1)
@@ -52,10 +55,8 @@
 				plane.style.left = planeX+"px";
 			}
 
-			setInterval(moveLeftPlane, 50);
-			moveLeftPlane();
-
 			const moveRightPlane = function() {
+				console.log("right move")
 				if (planeX >= rightBound) {
 					plane.setAttribute('class', 'left')
 					clearInterval(handle2)
@@ -65,9 +66,6 @@
 				planeX += planeSpeed
 				plane.style.left = planeX+"px";
 			}
-
-			setInterval(moveRightPlane, 50);
-			moveRightPlane();
 
 			
 			const moveUpPlane = function() {
@@ -81,9 +79,6 @@
 					plane.style.top = planeY+"px";
 				}
 
-				setInterval(moveUpPlane, 50);
-				moveUpPlane();
-
 			const moveDownPlane = function() {
 				if (planeY >= bottomBound) {
 					plane.setAttribute('class', 'up')
@@ -94,9 +89,6 @@
 				planeY += planeSpeed;
 				plane.style.top = planeY+"px";
 			}
-
-				setInterval(moveDownPlane, 50);
-				moveDownPlane();
 
 
 		if (direction == 'left') {
@@ -131,10 +123,11 @@
 		// 	    	arrowJSON.push(data[i])
 		// 	    }
 
-		arrowJSON = [{"id": "one", "direction": "left", "speed": 10}]
+		arrowJSON = [{"id": "one", "direction": "down", "speed": 10}, {"id": "two", "direction": "up", "speed": 10}, {"id": "three", "direction": "left", "speed": 10}, {"id": "four", "direction": "right", "speed": 10}]
 
 		for (k = 0; k <arrowJSON.length; k++) {
 			i = arrowJSON[k]
+			console.log(i)
 			let newArrow = document.createElement('img')
 				newArrow.setAttribute('src', 'arrow.png')
 				newArrow.setAttribute('width', size + "px")
@@ -148,47 +141,78 @@
 			}
 			
 
-		document.onkeydown = checkKey;
+		// document.onkeydown = checkKeyDown;
 
-		function checkKey(e) {
+		// function checkKeyDown(e) {
 
-		    e = e || window.event;
+		//     e = e || window.event;
 
-		    if (e.keyCode == '38') {
-		        let upArrows = document.getElementsByClassName('up')
-		        for (i = 0; i < upArrows.length; i++) {
-		        	clearInterval(handle3)
-		        	moveUpPlane()
-		        }
-		    }
-		    else if (e.keyCode == '40') {
-		        let downArrows = document.getElementsByClassName('down')
-		        for (i = 0; i < downArrows.length; i++) {
-		        	clearInterval(handle4)
-		        	moveDownPlane()
-		        }
-		    }
-		    else if (e.keyCode == '37') {
-		       let leftArrows = document.getElementsByClassName('left')
-		        for (i = 0; i < leftArrows.length; i++) {
-		        	clearInterval(handle1)
-		        	moveLeftPlane()
-		        }
-		    }
-		    else if (e.keyCode == '39') {
-		       let rightArrows = document.getElementsByClassName('right')
-		        for (i = 0; i < rightArrows.length; i++) {
-		        	clearInterval(handle2)
-		        	moveRightPlane()
-		        }
-		    }
+		//     if (e.keyCode == '38') {
+		//         let upArrows = document.getElementsByClassName('up')
+		//         for (i = 0; i < upArrows.length; i++) {
+		//         	clearInterval(handle3)
+		//         	upArrows[i].style.top = parseInt(upArrows[i].style.top.slice(0, -2))-40 + "px"
+		//         }
+		//     }
+		//     else if (e.keyCode == '40') {
+		//         let downArrows = document.getElementsByClassName('down')
+		//         for (i = 0; i < downArrows.length; i++) {
+		//         	clearInterval(handle4)
+		//         	downArrows[i].style.top = parseInt(downArrows[i].style.top.slice(0, -2))+40 + "px"
+		//         }
+		//     }
+		//     else if (e.keyCode == '37') {
+		//        let leftArrows = document.getElementsByClassName('left')
+		//         for (i = 0; i < leftArrows.length; i++) {
+		//         	clearInterval(handle1)
+		//         	leftArrows[i].style.left = parseInt(leftArrows[i].style.left.slice(0, -2))-40 + "px"
+		//         }
+		//     }
+		//     else if (e.keyCode == '39') {
+		//        let rightArrows = document.getElementsByClassName('right')
+		//         for (i = 0; i < rightArrows.length; i++) {
+		//         	clearInterval(handle2)
+		//         	rightArrows[i].style.left = parseInt(rightArrows[i].style.left.slice(0, -2))+40 + "px"
+		//         }
+		//     }
 
-		}
+		// }
+
+		// document.onkeyup = checkKeyUp;
+
+		// function checkKeyUp(e) {
+
+		//     e = e || window.event;
+
+		//     if (e.keyCode == '38') {
+		//         let upArrows = document.getElementsByClassName('up')
+		//         for (i = 0; i < upArrows.length; i++) {
+		//         	makePlane(upArrows[i].id, 10, 'up')
+		//         }
+		//     }
+		//     else if (e.keyCode == '40') {
+		//         let downArrows = document.getElementsByClassName('down')
+		//         for (i = 0; i < downArrows.length; i++) {
+		//         	makePlane(downArrows[i].id, 10, 'down')
+		//         }
+		//     }
+		//     else if (e.keyCode == '37') {
+		//        let leftArrows = document.getElementsByClassName('left')
+		//         for (i = 0; i < leftArrows.length; i++) {
+		//         	makePlane(leftArrows[i].id, 10, 'left')
+		//         }
+		//     }
+		//     else if (e.keyCode == '39') {
+		//        let rightArrows = document.getElementsByClassName('right')
+		//         for (i = 0; i < rightArrows.length; i++) {
+		//         	makePlane(rightArrows[i].id, 10, 'right')
+		//         }
+		//     }
+
+		// }
 
 </script>
 
-
 </body>
-
 
 </html>
