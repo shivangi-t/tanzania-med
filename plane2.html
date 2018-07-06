@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+		.left {
+			position: absolute;
+			top: 200px;
+			left: 325px;
+		}
+
+		.right {
+			position: absolute;
+			top: 200px;
+			left: 375px;
+			transform: rotate(180deg);
+		}
+
+		.up {
+			position: absolute;
+			top: 175px;
+			left: 350px;
+			transform: rotate(90deg);
+		}
+
+		.down {
+			position: absolute;
+			top: 225px;
+			left: 350px;
+			transform: rotate(-90deg);
+		}
+	</style>
+</head>
+
+<body>
+<!-- <img src="arrow.png" width="25px" height="25px" id="left" class="left"/>
+<img src="arrow.png" width="25px" height="25px" id="right" class="right"/>
+<img src="arrow.png" width="25px" height="25px" id="up" class="up"/>
+<img src="arrow.png" width="25px" height="25px" id="down" class="down"/> -->
+
+<script>
+
+		//Left plane
+		const makeLeftPlane = function(id, speed) {
+			const left = document.getElementById(id),
+				leftSpeed = speed
+			let leftY = 200,
+				leftX = 325,
+				leftDir = -1
+
+			const moveLeftPlane = function() {
+				if (leftX <= 0) {
+					left.style.transform = "rotate(180deg)"
+					leftDir = 1
+				}
+				else if (leftX > rightBound) {
+					left.style.transform = "rotate(0deg)"
+					leftDir = -1;
+				}
+				if (leftDir == -1){
+					leftX -= leftSpeed;
+				}
+				else if (leftDir == 1){
+					leftX += leftSpeed;
+				}
+				left.style.left = leftX+"px";
+			}
+
+			setInterval(moveLeftPlane, 50);
+			moveLeftPlane();
+
+		}
+
+		//Right plane
+		const makeRightPlane = function(id, speed) {
+			const right = document.getElementById(id),
+				rightSpeed = speed
+			let rightY = 200,
+				rightX = 375,
+				rightDir = 1
+
+			const moveRightPlane = function() {
+				if (rightX >= rightBound) {
+					right.style.transform = "rotate(0deg)"
+					rightDir = -1
+				}
+				else if (rightX < 0) {
+					right.style.transform = "rotate(180deg)"
+					rightDir = 1;
+				}
+				if (rightDir == -1){
+					rightX -= rightSpeed;
+				}
+				else if (rightDir == 1){
+					rightX += rightSpeed;
+				}
+				right.style.left = rightX+"px";
+			}
+
+			setInterval(moveRightPlane, 50);
+			moveRightPlane();
+		}
+		
+
+		//Up plane
+		const makeUpPlane = function(id, speed) {
+			const up = document.getElementById(id),
+				upSpeed = speed
+			let upY = 175,
+				upX = 350,
+				upDir = -1
+
+			const moveUpPlane = function() {
+				if (upY <= 0) {
+					up.style.transform = "rotate(270deg)"
+					upDir = 1
+				}
+				else if (upY > bottomBound) {
+					up.style.transform = "rotate(90deg)"
+					upDir = -1;
+				}
+				if (upDir == -1){
+					upY -= upSpeed;
+				}
+				else if (upDir == 1){
+					upY += upSpeed;
+				}
+				up.style.top = upY+"px";
+			}
+
+			setInterval(moveUpPlane, 50);
+			moveUpPlane();
+		}
+		
+
+		//Down plane
+		const makeDownPlane = function(id, speed) {
+			const down = document.getElementById(id),
+				downSpeed = speed
+			let downY = 225,
+				downX = 350,
+				downDir = 1
+
+			const moveDownPlane = function() {
+				if (downY >= bottomBound) {
+					down.style.transform = "rotate(90deg)"
+					downDir = -1
+				}
+				else if (downY < 0) {
+					down.style.transform = "rotate(270deg)"
+					downDir = 1;
+				}
+				if (downDir == -1){
+					downY -= downSpeed;
+				}
+				else if (downDir == 1){
+					downY += downSpeed;
+				}
+				down.style.top = downY+"px";
+			}
+
+			setInterval(moveDownPlane, 50);
+			moveDownPlane();
+		}
+
+		const size = 25, bottomBound =
+		window.innerHeight-size, rightBound = window.innerWidth-size
+		
+		let arrowJSON = []
+		$.ajax({
+			url: 'arrow.json',
+			type: "GET",
+			dataType: "json",
+			success: function (data) {
+			    for (i = 0; i < data.length; i++) {
+			    	arrowJSON.push(data[i])
+			    }
+
+
+
+		for (k = 0; k <arrowJSON.length; k++) {
+			i = arrowJSON[k]
+			console.log(i)
+			let newArrow = document.createElement('img')
+				newArrow.setAttribute('src', 'arrow.png')
+				newArrow.setAttribute('width', size + "px")
+				newArrow.setAttribute('height', size + "px")
+				newArrow.setAttribute('class', i.direction)
+				newArrow.id = i.id
+				document.getElementsByTagName('body')[0].appendChild(newArrow);
+				newArrow = document.getElementById(i.id);
+
+				if (i.direction == 'left') {
+					makeLeftPlane(i.id, i.speed)
+				}
+				else if (i.direction == 'right') {
+					makeRightPlane(i.id, i.speed)
+				}
+				else if (i.direction == 'up') {
+					makeUpPlane(i.id, i.speed)
+				}
+				else if (i.direction == 'down') {
+					makeDownPlane(i.id, i.speed)
+				}
+			}
+			
+			}
+		})
+
+</script>
+
+
+</body>
+
+
+</html>

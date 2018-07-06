@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<style>
+	#sky {
+		border: solid;
+	}
+	</style>
+</head>
+
+<body>
+	<svg width = "700px" height = "400px" id="sky">
+		<image xlink:href="arrow.png" height="25px" width="25px" x="340px" y="200px" id='left'/>
+		<!-- <img xlink:href="arrow.png" height="64px" width="64px" id='left'/> -->
+		<!-- <circle cx = "340px" cy = "200px" r = "10px" fill = 'red' id='left'></circle>
+		<circle cx = "350px" cy = "210px" r = "10px" fill = 'blue' id='down'></circle>
+		<circle cx = "350px" cy = "190px" r = "10px" fill = 'green' id='up'></circle>
+		<circle cx = "360px" cy = "200px" r = "10px" fill = 'yellow' id='right'></circle> -->
+	</svg>
+
+	<img src="arrow.png"/>
+
+	<script>
+	const skyWidth = 700,
+		skyHeight = 400,
+		sky = document.getElementById('sky')
+
+		//Left circle
+		const left = document.getElementById('left')
+		let leftX = 340,
+			leftY = 200,
+			leftDir = -1
+
+		const moveLeftCircle = function() {
+			if (leftX <= 0) {
+				left.setAttribute("transform", "rotate(180 " + 10 + " " + 210 + ")")
+			}
+			else if (leftX < -340) {
+				console.log("yes")
+				leftDir = 0;
+			}
+			if (leftDir == -1){
+				leftX -= 10;
+			}
+			left.setAttribute("x", leftX+"px");
+		}
+
+		// //Right circle
+		// const right = document.getElementById('right')
+		// let rightX = 360,
+		// 	rightY = 200,
+		// 	rightDir = 1
+
+		// const moveRightCircle = function() {
+		// 	if (rightX >= skyWidth) {
+		// 		right.setAttribute("transform", 'rotate(180deg)')
+		// 		rightDir = -1;
+		// 	}
+		// 	else if (rightX < 360) {
+		// 		rightDir = 0;
+		// 	}
+		// 	if (rightDir == -1) {
+		// 		rightX -= 5;
+		// 	}
+		// 	else if (rightDir == 1) {
+		// 		rightX += 5;
+		// 	}
+		// 	right.setAttribute("cx", rightX);
+		// }
+
+		// //up circle
+		// const up = document.getElementById('up')
+		// let upX = 350,
+		// 	upY = 190,
+		// 	upDir = -1
+
+		// const moveUpCircle = function() {
+		// 	if (upY <= 0) {
+		// 		up.setAttribute("transform", 'rotate(180deg)')
+		// 		upDir = 1;
+		// 	}
+		// 	else if (upY > 190) {
+		// 		upDir = 0;
+		// 	}
+		// 	if (upDir == -1) {
+		// 		upY -= 7;
+		// 	}
+		// 	else if (upDir == 1) {
+		// 		upY += 7;
+		// 	}
+		// 	up.setAttribute("cy", upY);
+		// }
+
+		// //down circle
+		// const down = document.getElementById('down')
+		// let downX = 350,
+		// 	downY = 210,
+		// 	downDir = 1
+
+		// const moveDownCircle = function() {
+		// 	if (downY < 210) {
+		// 		downDir = 0;
+		// 	}
+		// 	else if (downY >= skyHeight) {
+		// 		down.setAttribute("transform", 'rotate(180deg)')
+		// 		downDir = -1;
+		// 	}
+		// 	if (downDir == -1) {
+		// 		downY -= 10;
+		// 	}
+		// 	else if (downDir == 1) {
+		// 		downY += 10;
+		// 	}
+		// 	down.setAttribute("cy", downY);
+		// }
+
+		setInterval(moveLeftCircle, 50);
+		// setInterval(moveRightCircle, 50);
+		// setInterval(moveUpCircle, 50);
+		// setInterval(moveDownCircle, 50);
+		moveLeftCircle();
+		// moveRightCircle();
+		// moveUpCircle();
+		// moveDownCircle();
+
+	</script>
+
+</body>
+
+</html>
