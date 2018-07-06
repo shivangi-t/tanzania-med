@@ -131,7 +131,7 @@
 		// 	    	arrowJSON.push(data[i])
 		// 	    }
 
-		arrowJSON = [{"id": "one", "direction": "up", "speed": 10}]
+		arrowJSON = [{"id": "one", "direction": "left", "speed": 10}]
 
 		for (k = 0; k <arrowJSON.length; k++) {
 			i = arrowJSON[k]
@@ -162,13 +162,25 @@
 		        }
 		    }
 		    else if (e.keyCode == '40') {
-		        // down arrow
+		        let downArrows = document.getElementsByClassName('down')
+		        for (i = 0; i < downArrows.length; i++) {
+		        	clearInterval(handle4)
+		        	moveDownPlane()
+		        }
 		    }
 		    else if (e.keyCode == '37') {
-		       // left arrow
+		       let leftArrows = document.getElementsByClassName('left')
+		        for (i = 0; i < leftArrows.length; i++) {
+		        	clearInterval(handle1)
+		        	moveLeftPlane()
+		        }
 		    }
 		    else if (e.keyCode == '39') {
-		       // right arrow
+		       let rightArrows = document.getElementsByClassName('right')
+		        for (i = 0; i < rightArrows.length; i++) {
+		        	clearInterval(handle2)
+		        	moveRightPlane()
+		        }
 		    }
 
 		}
